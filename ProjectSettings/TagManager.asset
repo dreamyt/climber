@@ -12,7 +12,7 @@ TagManager:
   - Water
   - UI
   - 
-  - 
+  - Background
   - Ground
   - PostProcessing
   - 
@@ -40,4 +40,19 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 915318041
+    locked: 0
+  - name: Tilemap
+    uniqueID: 1594288199
+    locked: 0
+  - name: Object
+    uniqueID: 2447131445
+    locked: 0
+  - name: Player
+    uniqueID: 2547091269
+    locked: 0
+  - name: Npc
+    uniqueID: 1121549871
     locked: 0
