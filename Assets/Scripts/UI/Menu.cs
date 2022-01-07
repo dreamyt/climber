@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
 
-public class Menu1 : MonoBehaviour
+public class Menu : MonoBehaviour
 {
     public GameObject pauseMenu;
     public AudioMixer audioMixer;

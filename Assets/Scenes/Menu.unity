@@ -1021,9 +1021,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 784000876}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e130dd831c93c3f4987dbe6e67e489f4, type: 3}
+  m_Script: {fileID: 11500000, guid: a0665132d0386e54ea6a15b0d4fce3d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pauseMenu: {fileID: 0}
+  audioMixer: {fileID: 0}
 --- !u!95 &784000879
 Animator:
   serializedVersion: 3

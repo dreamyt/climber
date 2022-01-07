@@ -21,9 +21,8 @@ public class Health : MonoBehaviour
     [HideInInspector]
     public float previousHealth;
     //death and revive related
-    [Header("death line")]
-    public Transform deathLine;
-    public Transform spawnPosition;
+    [Header("death line and revive")] 
+    public RevivePoint revive;
     
     [HideInInspector]
     public bool dead = false;
@@ -45,7 +44,7 @@ public class Health : MonoBehaviour
     private Animator anim;
     //private CharacterWeapon weapon;
     private EnemyHealth enemyHealth;
-
+    public GameObject DeadNotice;
     public AudioSource HitAudio;
     private void Awake()
     {
@@ -56,7 +55,7 @@ public class Health : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-       // weapon = GetComponent<CharacterWeapon>();
+        // weapon = GetComponent<CharacterWeapon>();
         //enemyHealth = GetComponent<EnemyHealth>();
         dead = false;
         getHit = false;
@@ -126,10 +125,9 @@ public class Health : MonoBehaviour
         {
             return;
         }
-        if (transform.position.y < deathLine.position.y)
+        if (transform.position.y < revive.Deadline.position.y)
         {
             dead = true;
-            Debug.Log(dead);
             health = 0;
             if (character.CharacterType == Character.CharacterTypes.player)
             {
@@ -170,8 +168,8 @@ public class Health : MonoBehaviour
                 //weapon.shootingAllowed = false;
                 /*BGM.Stop();
                 Gameover.Play();
-                //destroy weapon
-                deadNotice.SetActive(true);*/
+                //destroy weapon*/
+                DeadNotice.SetActive(true);
                 
             }
 
@@ -199,9 +197,10 @@ public class Health : MonoBehaviour
             rigid.simulated = true;
             //spriteRenderer.enabled = true;
             //anim.SetBool("Death", false);
-            rigid.position = spawnPosition.position;
+            rigid.position = revive.transform.position;
             check = false;
             health = previousHealth;
+            DeadNotice.SetActive(false);
             //healthNumber.text = health.ToString();
             //UIManager.Instance.UpdateHealth(health, maxHealth);
         }
