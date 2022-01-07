@@ -15,6 +15,10 @@ public class Collision : MonoBehaviour
     public bool onWall;
     public bool onRightWall;
     public bool onLeftWall;
+    private bool onRightTopWall;
+    private bool onLeftTopWall;
+    private bool onRightBottomWall;
+    private bool onLeftBottomWall;
     public int wallSide;
 
     [Space]
@@ -22,7 +26,8 @@ public class Collision : MonoBehaviour
     [Header("Collision")]
 
     public float collisionRadius = 0.25f;
-    public Vector2 bottomOffset, rightOffset, leftOffset;
+
+    public Vector2 bottomOffset, rightTopOffset, rightBottomOffset, leftTopOffset, leftBottomOffset; 
     private Color debugCollisionColor = Color.red;
 
     // Start is called before the first frame update
@@ -35,12 +40,16 @@ public class Collision : MonoBehaviour
     void Update()
     {  
         onGround = Physics2D.OverlapCircle((Vector2)transform.position + bottomOffset, collisionRadius, groundLayer);
-        onWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, collisionRadius, wallLayer) 
-            || Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, collisionRadius, wallLayer);
-
-        onRightWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, collisionRadius, wallLayer);
-        onLeftWall = Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, collisionRadius, wallLayer);
-
+        
+        onRightTopWall = Physics2D.OverlapCircle((Vector2)transform.position + rightTopOffset, collisionRadius, wallLayer);
+        onRightBottomWall = Physics2D.OverlapCircle((Vector2)transform.position + rightBottomOffset, collisionRadius, wallLayer);
+        onRightWall = onRightTopWall || onRightBottomWall;
+       
+        onLeftTopWall = Physics2D.OverlapCircle((Vector2)transform.position + leftTopOffset, collisionRadius, wallLayer);
+        onLeftBottomWall = Physics2D.OverlapCircle((Vector2)transform.position + leftBottomOffset, collisionRadius, wallLayer);
+        onLeftWall = onLeftTopWall || onLeftBottomWall;
+        
+        onWall = onLeftWall || onRightWall;
         wallSide = onRightWall ? -1 : 1;
     }
 
@@ -48,10 +57,12 @@ public class Collision : MonoBehaviour
     {
         Gizmos.color = Color.green;
 
-        var positions = new Vector2[] { bottomOffset, rightOffset, leftOffset };
+        var positions = new Vector2[] { bottomOffset, rightTopOffset, rightBottomOffset, leftTopOffset, leftBottomOffset};
 
         Gizmos.DrawWireSphere((Vector2)transform.position  + bottomOffset, collisionRadius);
-        Gizmos.DrawWireSphere((Vector2)transform.position + rightOffset, collisionRadius);
-        Gizmos.DrawWireSphere((Vector2)transform.position + leftOffset, collisionRadius);
+        Gizmos.DrawWireSphere((Vector2)transform.position + rightTopOffset, collisionRadius);
+        Gizmos.DrawWireSphere((Vector2)transform.position + leftTopOffset, collisionRadius);
+        Gizmos.DrawWireSphere((Vector2)transform.position +rightBottomOffset, collisionRadius);
+        Gizmos.DrawWireSphere((Vector2)transform.position + leftBottomOffset, collisionRadius);
     }
 }
