@@ -61,7 +61,7 @@ public class Movement : MonoBehaviour
 
         Walk(dir);
         anim.SetHorizontalMovement(x, y, rb.velocity.y);
-/*
+
         if (coll.onWall && Input.GetKey(KeyCode.L) && canMove)
         {
             if(side != coll.wallSide)
@@ -75,7 +75,7 @@ public class Movement : MonoBehaviour
             wallGrab = false;
             wallSlide = false;
         }
-*/
+
         if (coll.onGround && !isDashing)
         {
             wallJumped = false;
