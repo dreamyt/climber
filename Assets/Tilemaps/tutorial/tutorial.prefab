@@ -5713,6 +5713,24 @@ Tilemap:
       e31: 0
       e32: 0
       e33: 1
+  - m_RefCount: 0
+    m_Data:
+      e00: 2.5244127e-29
+      e01: -2.0572232e+19
+      e02: -2.0570297e+19
+      e03: -2.0570297e+19
+      e10: 6.7e-43
+      e11: 2.35e-43
+      e12: 2.35e-43
+      e13: 2.35e-43
+      e20: -2.3390419e-29
+      e21: 8.3357946e-26
+      e22: -0.0000000018833237
+      e23: 8.3357946e-26
+      e30: 4.5904e-41
+      e31: 6.7e-43
+      e32: 6.68e-43
+      e33: 6.7e-43
   m_TileColorArray:
   - m_RefCount: 365
     m_Data: {r: 1, g: 1, b: 1, a: 1}
@@ -5957,6 +5975,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: spike
       objectReference: {fileID: 0}
+    - target: {fileID: 6882616700670303988, guid: e4fbc6f073bf80440a4e0354936f298a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9052549866484806982, guid: e4fbc6f073bf80440a4e0354936f298a,
         type: 3}
       propertyPath: m_RootOrder
@@ -6020,7 +6043,7 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3991715825870787613}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8572782191907590428
+--- !u!114 &1808988508933593199
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

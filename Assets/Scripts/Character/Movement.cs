@@ -18,6 +18,7 @@ public class Movement : MonoBehaviour
     public float slideSpeed = 5;
     public float wallJumpLerp = 10;
     public float dashSpeed = 20;
+    public float wallJumpHeight = 5;
 
     [Space]
     [Header("Booleans")]
@@ -166,9 +167,9 @@ public class Movement : MonoBehaviour
 
     private void Dash(float x, float y)
     {
-        Camera.main.transform.DOComplete();
-        Camera.main.transform.DOShakePosition(.2f, .5f, 14, 90, false, true);
-        FindObjectOfType<RippleEffect>().Emit(Camera.main.WorldToViewportPoint(transform.position));
+        //Camera.main.transform.DOComplete();
+        //Camera.main.transform.DOShakePosition(.2f, .5f, 14, 90, false, true);
+        //FindObjectOfType<RippleEffect>().Emit(Camera.main.WorldToViewportPoint(transform.position));
 
         hasDashed = true;
 
@@ -269,7 +270,15 @@ public class Movement : MonoBehaviour
         ParticleSystem particle = wall ? wallJumpParticle : jumpParticle;
 
         rb.velocity = new Vector2(rb.velocity.x, 0);
-        rb.velocity += dir * jumpForce;
+        if (!wall)
+        {
+            rb.velocity += dir * jumpForce;
+        }
+        else
+        {
+            rb.velocity += dir * jumpForce;
+            rb.velocity += Vector2.up * wallJumpHeight;
+        }
 
         particle.Play();
     }
