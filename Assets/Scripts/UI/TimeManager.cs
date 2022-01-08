@@ -19,7 +19,7 @@ public class TimeManager : Singleton<TimeManager>
         {
             yield return new WaitForSeconds(1);
             time++;
-            UIManager.Instance.UpdateTime(time);
+            UIManager.Instance.UpdateTime();
         }
     }
     

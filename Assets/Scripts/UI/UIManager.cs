@@ -9,7 +9,7 @@ public class UIManager : Singleton<UIManager>
     [Header("Health")]
     [SerializeField] private Image healthBar;
     [SerializeField] private Text healthNumber;
-    
+    [SerializeField] private Text maxHealthNumber;
     [Header("Coin")]
     [SerializeField] private Text coinNumber;
     
@@ -38,24 +38,25 @@ public class UIManager : Singleton<UIManager>
         this.maxHealth = maxHealth;
     }
 
-    public void UpdateCoin(int coins)
+    public void UpdateCoin()
     {
         this.coins = CoinManager.Instance.Coins;
     }
 
-    public void UpdatePoint(int points)
+    public void UpdatePoint()
     {
-        this.points = points;
+        this.points = PointManager.Instance.Points;
     }
 
-    public void UpdateTime(float time)
+    public void UpdateTime()
     {
-        this.time = time;
+        this.time = TimeManager.Instance.time;
     }
     private void InternalUpdateHealth() 
     {
         healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, currentHealth / maxHealth, 10f * Time.deltaTime);
         healthNumber.text = currentHealth.ToString();
+        maxHealthNumber.text = maxHealth.ToString();
     }
 
     private void InternalUpdateCoin()

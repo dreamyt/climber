@@ -63,8 +63,7 @@ public class Health : MonoBehaviour
        
         if (character.CharacterType == Character.CharacterTypes.player)
         {
-            //UIManager.Instance.UpdateHealth(health, maxHealth);
-            //healthNumber.text = health.ToString();
+            UIManager.Instance.UpdateHealth(health, maxHealth);
         }
 
     }
@@ -166,6 +165,7 @@ public class Health : MonoBehaviour
         }
         else
         {
+            UIManager.Instance.UpdateHealth(0, maxHealth);
             rigid.simulated = false;
             DeadNotice.SetActive(true);
             spriteRenderer.enabled = false;
@@ -200,8 +200,7 @@ public class Health : MonoBehaviour
             rigid.position = revive.transform.position;
             spriteRenderer.enabled = true;
             DeadNotice.SetActive(false);
-            //healthNumber.text = health.ToString();
-            //UIManager.Instance.UpdateHealth(health, maxHealth);
+            UIManager.Instance.UpdateHealth(health, maxHealth);
         }
     }
     private void ReviveFromBeginning()
@@ -236,38 +235,9 @@ public class Health : MonoBehaviour
         // Update Player health
         if (character.CharacterType == Character.CharacterTypes.player)
         {
-            //healthNumber.text = health.ToString();
-            //UIManager.Instance.UpdateHealth(health, maxHealth);
+            UIManager.Instance.UpdateHealth(health, maxHealth);
         }
 
     }
-    /*private void UpdateAnimations()
-    {
-        if (anim != null)
-        {
-            if (dead)
-            {
-                anim.SetBool("Jump", false);
-                anim.SetBool("Moving", false);
-                anim.SetBool("Hurt", false);
-                anim.SetBool("Spelling", false); // Spelling is stopped by Death
-                anim.SetBool("Death", true);
-            }
-            else
-            {
-                if (getHit)
-                {
-                    anim.SetBool("Jump", false);
-                    anim.SetBool("Moving", false);
-                    anim.SetBool("Hurt", true);
-                    anim.SetBool("Spelling", false); // Spelling is also stopped by Hurt
-                }
-                else
-                {
-                    anim.SetBool("Hurt", false);
-                }
-            }
-        }
-    }*/
-    
+
 }

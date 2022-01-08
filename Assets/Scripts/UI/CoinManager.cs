@@ -40,12 +40,14 @@ public class CoinManager : Singleton<CoinManager>
         audio.Play();
         Coins += amount;
         PlayerPrefs.SetInt(KEY_COIN, Coins);
+        UIManager.Instance.UpdateCoin();
     }
     
     public void LossCoins(int amount)
     {
         Coins -= amount;
         PlayerPrefs.SetInt(KEY_COIN, Coins);
+        UIManager.Instance.UpdateCoin();
     }
 
 }

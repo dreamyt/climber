@@ -37,12 +37,14 @@ public class PointManager : Singleton<PointManager>
     {
         Points += amount;
         PlayerPrefs.SetInt(KEY_POINT, Points);
+        UIManager.Instance.UpdatePoint();
     }
     
     public void LossPoints(int amount)
     {
         Points -= amount;
         PlayerPrefs.SetInt(KEY_POINT, Points);
+        UIManager.Instance.UpdatePoint();
     }
 
 }
