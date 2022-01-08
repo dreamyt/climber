@@ -114,9 +114,14 @@ public class Movement : MonoBehaviour
             anim.SetTrigger("jump");
 
             if (coll.onGround)
+            {
                 Jump(Vector2.up, false);
+            }
+
             if (coll.onWall && !coll.onGround)
+            {
                 WallJump();
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.J) && !hasDashed)

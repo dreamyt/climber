@@ -16,10 +16,17 @@ public class SimpleDialog : MonoBehaviour
     {
         if (activated)
         {
+            Time.timeScale = 0;
             if (Input.GetKeyDown("space"))
             {
                 DialogContent.text = words[count];
-                count = (count + 1) % words.Length;
+                count = (count + 1);
+                if (count == words.Length)
+                {
+                    count = 0;
+                    activated = false;
+                    Time.timeScale = 1;
+                }
             }
         }
         
@@ -37,8 +44,8 @@ public class SimpleDialog : MonoBehaviour
     private void OnCollisionExit2D(Collision2D other)
     {
         DialogBox.SetActive(false);
+        DialogContent.text = words[count];
         activated = false;
-        
     }
     
 }
