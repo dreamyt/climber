@@ -19,8 +19,6 @@ public class JumpButton : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Player"))
         {
-            if(col.gameObject.GetComponent<Collision>().onGround)
-                Debug.Log(col.gameObject.GetComponent<Collision>().onGround);
             player = col.gameObject;
             anim.SetBool("Bounce", true);
             bounce();
