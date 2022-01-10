@@ -11,6 +11,7 @@ public class Point : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             PointManager.Instance.AddPoints(pointsToAdd);
+            PointManager.Instance.Strawberry++;
             Destroy(gameObject);
         }
     }

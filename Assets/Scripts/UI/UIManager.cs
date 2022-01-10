@@ -24,14 +24,16 @@ public class UIManager : Singleton<UIManager>
     public int coins;
     private int points;
     private float time;
+
     private void Update()
     {
         InternalUpdateHealth();
         InternalUpdateCoin();
         InternalUpdatePoint();
         InternalUpdateTime();
+
     }
-    
+
     public void UpdateHealth(float health, float maxHealth)
     {
         currentHealth = health;

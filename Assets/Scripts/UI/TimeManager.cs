@@ -18,7 +18,10 @@ public class TimeManager : Singleton<TimeManager>
         while (true)
         {
             yield return new WaitForSeconds(1);
-            time++;
+            if (!GameObject.Find("Player").GetComponent<Health>().dead)
+            {
+                time++;
+            }
             UIManager.Instance.UpdateTime();
         }
     }

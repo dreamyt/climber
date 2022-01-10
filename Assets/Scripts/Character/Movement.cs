@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class Movement : MonoBehaviour
 {
@@ -42,6 +43,7 @@ public class Movement : MonoBehaviour
     public ParticleSystem wallJumpParticle;
     public ParticleSystem slideParticle;
 
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -112,7 +114,7 @@ public class Movement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.K))
         {
             anim.SetTrigger("jump");
-
+            
             if (coll.onGround)
             {
                 Jump(Vector2.up, false);
@@ -185,6 +187,8 @@ public class Movement : MonoBehaviour
 
         rb.velocity += dir.normalized * dashSpeed;
         StartCoroutine(DashWait());
+        
+        SoundManager.Instance.PlaySound(SoundManager.Instance.DashClip, 1);
     }
 
     IEnumerator DashWait()
@@ -229,7 +233,7 @@ public class Movement : MonoBehaviour
         Vector2 wallDir = coll.onRightWall ? Vector2.left : Vector2.right;
 
         Jump((Vector2.up / 1.5f + wallDir / 1.5f), true);
-
+        SoundManager.Instance.PlaySound(SoundManager.Instance.JumpClip, 1);
         wallJumped = true;
     }
 
@@ -284,7 +288,7 @@ public class Movement : MonoBehaviour
             rb.velocity += dir * jumpForce;
             rb.velocity += Vector2.up * wallJumpHeight;
         }
-
+        SoundManager.Instance.PlaySound(SoundManager.Instance.JumpClip, 1);
         particle.Play();
     }
 

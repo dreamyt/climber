@@ -10,6 +10,7 @@ public class RevivePoint : MonoBehaviour
     {
         if (col.CompareTag("Player"))
         {
+            SoundManager.Instance.PlaySound(SoundManager.Instance.RevivePointClip, 1);
             col.gameObject.GetComponent<Health>().revive = gameObject.GetComponent<RevivePoint>();
         }
     }

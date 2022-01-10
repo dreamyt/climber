@@ -14,7 +14,6 @@ public class Health : MonoBehaviour
     [SerializeField] private float initialHealth = 20f;
     [SerializeField] private float MaxHealth = 20f;
     [SerializeField] private bool destroyObject;
-    public Text healthNumber;
     [HideInInspector]
     public float health;
     [HideInInspector]
@@ -35,11 +34,9 @@ public class Health : MonoBehaviour
     private float timeSpentBlink = 0.01f;
 
     private Character character;
-    private CharacterController controller;
-    private Collider2D collider2D;
+    private CharacterWeapon _characterWeapon;
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D rigid;
-    private Animator anim;
     //private CharacterWeapon weapon;
     private EnemyHealth enemyHealth;
     public GameObject DeadNotice;
@@ -48,13 +45,10 @@ public class Health : MonoBehaviour
     {
         
         character = GetComponent<Character>();
-        controller = GetComponent<CharacterController>();
-        collider2D = GetComponent<Collider2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         rigid = GetComponent<Rigidbody2D>();
-        anim = GetComponentInChildren<Animator>();
-        // weapon = GetComponent<CharacterWeapon>();
-        //enemyHealth = GetComponent<EnemyHealth>();
+        _characterWeapon = GetComponent<CharacterWeapon>();
+        enemyHealth = GetComponent<EnemyHealth>();
         dead = false;
         getHit = false;
         health = initialHealth;
@@ -82,40 +76,30 @@ public class Health : MonoBehaviour
                 
                if (Input.GetKey(KeyCode.H))
                {
-                    //if(!CoinManager.Instance.isTimeout)
-                    Revive();
+                   Revive();
                }
                else if(!check)
                {
                    Death();
                }
-               /*
-                else if (Input.GetKey("r"))
-                {
-                    ReviveFromBeginning();
-                    
-                }*/
+            }
+            else
+            {
+                Death();
             }
         }
         else
         {
-            if (character.CharacterType == Character.CharacterTypes.player)
-            {
-                //healthNumber.text = health.ToString();
-            }
-
-            if (Input.GetKeyDown(KeyCode.I))
-            {
-                TakeDamage(1);
-            }
             IsDead();
             if (getHit)
             {
-                timeSpentBlink += Time.deltaTime;
-                
-                float remainder = timeSpentBlink % 0.3f;
-                spriteRenderer.enabled = remainder > 0.15f;
-                
+                if (character.CharacterType == Character.CharacterTypes.player)
+                {
+                    timeSpentBlink += Time.deltaTime;
+
+                    float remainder = timeSpentBlink % 0.3f;
+                    spriteRenderer.enabled = remainder > 0.15f;
+                }
                 if (Time.time > HitFinishTime)
                 {
                     spriteRenderer.enabled = true;
@@ -123,8 +107,6 @@ public class Health : MonoBehaviour
                 }
             }
         }
-
-        //UpdateAnimations();
     }
     private void IsDead()
     {
@@ -132,23 +114,29 @@ public class Health : MonoBehaviour
         {
             return;
         }
-        if (transform.position.y < revive.Deadline.position.y)
+
+        if (character.CharacterType == Character.CharacterTypes.player)
         {
-            dead = true;
-            health = 0;
-            if (character.CharacterType == Character.CharacterTypes.player)
+            if (transform.position.y < revive.Deadline.position.y)
             {
-                //UIManager.Instance.UpdateHealth(health, maxHealth);
-                //healthNumber.text = health.ToString();
+                dead = true;
+                health = 0;
             }
         }
+        else
+        {
+            if (transform.position.y < -20)
+            {
+                dead = true;
+                health = 0;
+            }
+        }
+
         if(health <= 0)
         {
             dead = true;
         }
-
-        //if (CoinManager.Instance.isTimeout)
-            //dead = true;
+        
     }
     private void DestroyObject()
     {
@@ -157,7 +145,6 @@ public class Health : MonoBehaviour
 
     private void Death()
     {
-        Debug.Log(check);
         if (destroyObject)
         {
             rigid.simulated = false;
@@ -165,34 +152,32 @@ public class Health : MonoBehaviour
         }
         else
         {
+            SoundManager.Instance.PlaySound(SoundManager.Instance.DieClip, 1);
             UIManager.Instance.UpdateHealth(0, maxHealth);
             rigid.simulated = false;
             DeadNotice.SetActive(true);
             spriteRenderer.enabled = false;
             GameObject obj = Instantiate(diePaticle, transform.position, transform.rotation);
             Destroy(obj, 2f);
-            // weapon.RemoveWeapon();
-            //weapon.shootingAllowed = false;
+            _characterWeapon.RemoveWeapon();
+            _characterWeapon.shootingAllowed = false;
+            check = true;
             /*BGM.Stop();
             Gameover.Play();
-            //destroy weapon*/
-            check = true;
+            */
         }
     
     }
-    private void Revive()
+    public void Revive()
     {
         /*
          Gameover.Stop();
          BGM.Play();
-         weapon.ShowWeapon();
-         weapon.ShootingAllowed = true;
-         deadNotice.SetActive(false);
          */
         if (!destroyObject)
         {
-           // weapon.ShowWeapon();
-           // weapon.shootingAllowed = true;
+           _characterWeapon.ShowWeapon();
+           _characterWeapon.shootingAllowed = true;
             check = false;
             dead = false;
             health = previousHealth;
@@ -214,8 +199,7 @@ public class Health : MonoBehaviour
         {
             return;
         }
-
-        //damage-shield
+        
         getHit = true;
         //HitAudio.Play();
         

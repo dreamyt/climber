@@ -6,6 +6,10 @@ TagManager:
   tags:
   - RevivePoint
   - Spike
+  - Bullet
+  - Fox
+  - EnemySpell
+  - End
   layers:
   - Default
   - TransparentFX
@@ -18,9 +22,9 @@ TagManager:
   - Ground
   - PostProcessing
   - One-way
-  - 
-  - 
-  - 
+  - Enemy
+  - Fox
+  - EnemyWeapon
   - 
   - 
   - 
@@ -57,4 +61,10 @@ TagManager:
     locked: 0
   - name: Npc
     uniqueID: 1121549871
+    locked: 0
+  - name: Weapon
+    uniqueID: 1925561385
+    locked: 0
+  - name: Projectile
+    uniqueID: 3327113751
     locked: 0

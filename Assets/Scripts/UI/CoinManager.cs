@@ -7,7 +7,6 @@ public class CoinManager : Singleton<CoinManager>
     [SerializeField] int initialCoins = 0;
     public int Coins;
     public int tempCoins;
-    public AudioSource audio; 
     public bool isWeaponBought = false;
     private readonly string KEY_COIN = "Coins";
 
@@ -37,7 +36,7 @@ public class CoinManager : Singleton<CoinManager>
 
     public void AddCoins(int amount)
     {
-        audio.Play();
+        SoundManager.Instance.PlaySound(SoundManager.Instance.CoinClip, 1);
         Coins += amount;
         PlayerPrefs.SetInt(KEY_COIN, Coins);
         UIManager.Instance.UpdateCoin();
